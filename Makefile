@@ -3,8 +3,8 @@ all: deps
 deps: get-submodules
 
 clean:
-	rm -r lib_orig/c4/build
-	rm -r lib_customMain/c4/build
+	rm -rf lib_orig/c4/build
+	rm -rf lib_customMain/c4/build
 
 c4_orig: lib_orig/c4/build/src/libc4/libc4.dylib
 
