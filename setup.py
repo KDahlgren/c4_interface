@@ -4,9 +4,10 @@ import os, sys, time
 
 # TODO: place magical installation code here
 
-C4_FINDAPR_PATH = "./lib/c4/cmake/FindApr.cmake"
-SETUP_DEBUG     = True
-DEBUG           = True
+C4_FINDAPR_PATH_ORIG       = "./lib_orig/c4/cmake/FindApr.cmake"
+C4_FINDAPR_PATH_CUSTOMMAIN = "./lib_customMain/c4/cmake/FindApr.cmake"
+SETUP_DEBUG                = True
+DEBUG                      = True
 
 #################
 #  GETAPR_LIST  #
@@ -38,10 +39,15 @@ def getAPR_list() :
 # prior to compilation.
 # need to ensure only one SET command exists in FindAPR.cmake after discovering
 # a valid apr library.
-def deduplicateSetup() :
+def deduplicateSetup( directory ) :
   # http://stackoverflow.com/questions/4710067/deleting-a-specific-line-in-a-file-python
   # protect against multiple runs of setup
-  f = open( C4_FINDAPR_PATH, "r+" )
+
+  if directory == "customMain" :
+    f = open( C4_FINDAPR_PATH_CUSTOMMAIN, "r+" )
+  else :
+    f = open( C4_FINDAPR_PATH_ORIG, "r+" )
+
   d = f.readlines()
   f.seek(0)
   for i in d:
@@ -57,10 +63,16 @@ def deduplicateSetup() :
 def setAPR( path, directory ) :
   # set one of the candidate APR paths
   newCmd = 'set(APR_INCLUDES "' + path + '")'
-  #cmd = "echo '" + newCmd + "' | cat - " + C4_FINDAPR_PATH + " > temp && mv temp " + C4_FINDAPR_PATH
-  cmd = "(head -48 " + C4_FINDAPR_PATH + "; " + "echo '" + newCmd + "'; " + "tail -n +49 " + C4_FINDAPR_PATH + ")" + " > temp ; mv temp " + C4_FINDAPR_PATH + ";"
+
+  # branch on directory type
+  if directory == "customMain" :
+    cmd = "(head -48 " + C4_FINDAPR_PATH_CUSTOMMAIN + "; " + "echo '" + newCmd + "'; " + "tail -n +49 " + C4_FINDAPR_PATH_CUSTOMMAIN + ")" + " > temp ; mv temp " + C4_FINDAPR_PATH_CUSTOMMAIN + ";"
+
+  else :
+    cmd = "(head -48 " + C4_FINDAPR_PATH_ORIG + "; " + "echo '" + newCmd + "'; " + "tail -n +49 " + C4_FINDAPR_PATH_ORIG + ")" + " > temp ; mv temp " + C4_FINDAPR_PATH_ORIG + ";"
+
+  # execute cmd
   os.system( cmd )
-  #os.system( "make deps" )
 
   if directory == "customMain" :
     os.system( "make c4_customMain" )
@@ -122,7 +134,7 @@ def main_customMain() :
   flag    = True
   for path in apr_path_cands :
     try :
-      deduplicateSetup()
+      deduplicateSetup( "customMain" )
     except IOError :
       setAPR( path, "customMain" )
 
@@ -165,7 +177,7 @@ def main_orig() :
   flag    = True
   for path in apr_path_cands :
     try :
-      deduplicateSetup()
+      deduplicateSetup( "orig" )
     except IOError :
       setAPR( path, "orig" )
 
