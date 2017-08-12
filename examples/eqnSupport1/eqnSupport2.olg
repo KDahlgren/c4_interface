@@ -1,0 +1,12 @@
+define(a,{int,int});
+define(d,{int}); 
+define(e,{int}); 
+define(post,{int,int}) ; 
+
+d( 1 ) ;
+e( 1 ) ;
+
+//a(X,Y+1) :- d(X),e(Y) ;
+a(A0,A1) :- d(A0),e(Y),A1=Y+1 ;
+
+post(X,Y) :- a(X,Y) ;
