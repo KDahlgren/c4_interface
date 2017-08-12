@@ -1,8 +1,4 @@
-[submodule "lib_orig/c4"]
-	path = lib_orig/c4
-	url = https://github.com/bloom-lang/c4.git
-        ignore = dirty
-[submodule "lib_customMain/c4"]
-	path = lib_customMain/c4
+[submodule "lib/c4"]
+	path = lib/c4
 	url = https://github.com/bloom-lang/c4.git
         ignore = dirty

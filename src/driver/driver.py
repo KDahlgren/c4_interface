@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-driver1.py
+driver.py
 '''
 
 # **************************************** #
@@ -16,53 +16,48 @@ import inspect, os, sqlite3, sys, time
 # ------------------------------------------------------ #
 # import sibling packages HERE!!!
 
-import Core
-
 if not os.path.abspath( __file__ + "/../.." ) in sys.path :
   sys.path.append( os.path.abspath( __file__ + "/../.." ) )
 
-from utils import parseCommandLineInput, tools
+from wrapper import C4Wrapper
 
 # **************************************** #
 
-
-#############
-#  GLOBALS  #
-#############
-DEBUG = tools.getConfig( "DRIVERS", "DRIVER_DEBUG", bool )
-
-C4_DUMP_SAVEPATH  = os.path.abspath( __file__ + "/../../.." ) + "/save_data/c4Output/c4dump.txt"
-TABLE_LIST_PATH   = os.path.abspath( __file__ + "/../.."    ) + "/evaluators/programFiles/" + "tableListStr.data"
-
-# remove files from previous runs or else suffer massive file collections.
-os.system( "rm " + os.path.abspath( __file__ + "/../../.." ) + "/save_data/graphOutput/*.png" )
 
 ############
 #  DRIVER  #
 ############
 def driver() :
 
-  os.system( "rm IR.db" ) # delete db from previous run, if appicable
+  programFile = sys.argv[1]
+  tableFile   = sys.argv[2]
 
-  # get dictionary of commandline arguments.
-  # exits here if user provides invalid inputs.
-  argDict = parseCommandLineInput.parseCommandLineInput( )  # get dictionary of arguments.
+  print "[ Executing C4 wrapper ]"
+  c4libpath = os.path.abspath( __file__ + "/../../../lib/c4/build/src/libc4/libc4.dylib" )
+  w = C4Wrapper.C4Wrapper( c4libpath ) # initializes c4 wrapper
 
-  # instantiate IR database
-  saveDB = os.getcwd() + "/IR.db"
-  IRDB   = sqlite3.connect( saveDB ) # database for storing IR, stored in running script dir
-  cursor = IRDB.cursor()
+  # /////////////////////////////////// #
+  rf = open( programFile, "r" )
+  prog1 = []
+  for line in rf :
+    line = line.rstrip()
+    prog1.append( line )
+  rf.close()
 
-  # initialize core
-  c = Core.Core( argDict, cursor )
+  rf = open( tableFile, "r" )
+  table_str1 = rf.readline()
+  table_str1 = table_str1.rstrip()
+  table_str1 = table_str1.split( "," )
 
-  # run orik on given spec (in file provided in argDict)
-  c.run_workflow()
+  results_array = w.run( [ prog1, table_str1 ] )
 
-  os.system( "rm IR.db" ) # delete db from previous run, if appicable
+  print
+  print "[ OUTPUTTING C4 EVALUATION RESULTS ]"
+  for line in results_array :
+    print line
 
-  if DEBUG :
-    "PROGRAM ENDED SUCESSFULLY."
+  print
+  print "PROGRAM ENDED SUCESSFULLY! =D"
 
 
 #########################

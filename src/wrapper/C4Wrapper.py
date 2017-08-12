@@ -255,11 +255,13 @@ class C4Wrapper( object ) :
 
     # ----------------------------------------- #
     # KD : bcsat debugging session 6/21/17
-    print "PRINTING RAW INPUT PROG"
+    print
+    print "[ PRINTING RAW INPUT PROG ]"
     for x in fullprog :
       print x
 
-    print "PRINTING LEGIBLE INPUT PROG"
+    print
+    print "[ PRINTING LEGIBLE INPUT PROG ]"
     for line in fullprog :
       line = line.split( ";" )
       for statement in line :
@@ -351,7 +353,12 @@ if __name__ == '__main__' :
   table_str1 = table_str1.rstrip()
   table_str1 = table_str1.split( "," )
 
-  w.run( [ prog1, table_str1 ] )
+  results_array = w.run( [ prog1, table_str1 ] )
+
+  print
+  print "[ OUTPUTTING C4 EVALUATION RESULTS ]"
+  for line in results_array :
+    print line
 
 
 #########
