@@ -1,1 +1,1 @@
-python ../../src/driver/driver.py eqnsupport3.olg tables.data
+python ../../src/drivers/pyc4.py eqnsupport3.olg tables.data

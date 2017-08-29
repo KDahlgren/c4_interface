@@ -13,7 +13,7 @@
 For example, run the following command from examples/test/ :
 
 ```
-python ../../src/driver/driver.py ./myTest.olg ./tableListStr_myTest.data 
+python ../../src/drivers/pyc4.py ./myTest.olg ./tableListStr_myTest.data 
 ```
 
 # Tips

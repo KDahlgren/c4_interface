@@ -91,11 +91,29 @@ def containsError( line ) :
     return False
 
 
+###################
+#  CHECK IF DONE  #
+###################
+def checkIfDone( path ) :
+
+  flag = False
+  if os.path.exists( os.path.dirname(os.path.abspath( __file__ )) + "/c4_out.txt" ) :
+    fo = open( "./c4_out.txt", "r" )
+    for line in fo :
+      line = line.strip()
+      if not flag :
+        if "[100%] Built target c4i" in line :
+          flag = True
+    fo.close()
+    os.system( "rm ./c4_out.txt" ) # clean up
+  return flag
+
+
 ##########
 #  MAIN  #
 ##########
 def main() :
-  print "Running pyLDFI setup with args : \n" + str(sys.argv)
+  print "Running PyC4 setup with args : \n" + str(sys.argv)
 
   # clean any existing libs
   os.system( "make clean" )
@@ -119,7 +137,8 @@ def main() :
     setAPR( path )
 
     try :
-      flag = checkForMakeError( path )
+      #flag = checkForMakeError( path )
+      flag = checkIfDone( path )
     except IOError :
       print "./c4_out.txt does not exist"
   
