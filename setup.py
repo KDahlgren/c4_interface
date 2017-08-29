@@ -129,6 +129,7 @@ def main() :
       print "... Done installing C4 Datalog evaluator"
       print "C4 install using APR path : " + path
       print "done installing c4."
+      break
     else :
       sys.exit( "failed to install C4. No fully functioning APR found." )
   # ---------------------------------------------- #
