@@ -1,4 +1,5 @@
 define(a,{int,int});
+define(b,{int}); 
 define(d,{int}); 
 define(e,{int}); 
 define(post,{int,int}) ; 
@@ -6,6 +7,7 @@ define(post,{int,int}) ;
 d( 1 ) ;
 e( 1 ) ;
 
-a(A0,Y) :- d(A0),e(Y), A0==Y+1 ;
+b(Y+1) :- e(Y) ;
+a(A0,A1) :- d(A0),b(A1) ;
 
 post(X,Y) :- a(X,Y) ;

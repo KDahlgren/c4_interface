@@ -1,0 +1,20 @@
+define(a,{int}) ;
+define(b,{int}) ;
+define(c,{int}) ;
+define(dom_a_1,{int}) ;
+define(dom_z,{int}) ;
+define(not_a,{int}) ;
+
+b(1) ;
+c(3) ;
+
+dom_a_1( 1 ) ;
+dom_a_1( 4 ) ;
+
+dom_z( 5 ) ;
+
+a(X) :- b(X) ;
+a(Y+1) :- c(Y) ;
+
+not_a(Z) :- dom_z(Z), notin b(X), notin c(Y), Z==X, Z==Y+1 ;
+

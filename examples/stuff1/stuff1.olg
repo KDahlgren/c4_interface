@@ -1,0 +1,57 @@
+define(stuff,{int,int});
+define(otherstuff,{int,int});
+define(a,{int,int});
+define(b,{int,int}) ;
+define(c,{int}) ;
+define(d,{int}) ;
+define(e,{int}) ;
+define(f,{int,int}) ;
+
+define(a_c,{int}) ;
+define(a_b,{int,int}) ;
+
+define(not_a,{int,int}) ;
+define(not_b,{int,int}) ;
+define(not_c,{int}) ;
+define(not_a_b,{int,int}) ;
+define(not_a_c,{int}) ;
+
+define(dom_stuff_att0,{int}) ;
+define(dom_stuff_att1,{int}) ;
+define(dom_not_a_att0,{int}) ;
+define(dom_not_a_att1,{int}) ;
+define(dom_not_a_b_att0,{int}) ;
+define(dom_not_a_b_att1,{int}) ;
+define(dom_not_a_c_att0,{int}) ;
+
+otherstuff(1,2) ;
+b(1,2) ;
+d(2) ;
+e(2) ;
+f(10,10) ;
+
+dom_stuff_att0( 1 ) ;
+dom_stuff_att1( 2 ) ;
+dom_not_a_att0( 1 ) ;
+dom_not_a_att1( 1 ) ;
+dom_not_a_b_att0( 1 ) ;
+dom_not_a_b_att1( 1 ) ;
+dom_not_a_c_att0( 1 ) ;
+
+stuff(X,Y) :- otherstuff(X,Y), not_a(X,Y) ;
+a(A0,A1) :- a_b(A0,A1), a_c(A1) ;
+a(A0,A1) :- f(A0,A1) ;
+c(A0) :- d(A0), e(A0) ;
+
+a_b(X,Y+1) :- b(X,Y) ;
+a_c(Y+1) :- c(Y) ;
+
+not_a(A0,A1) :- dom_stuff_att0(A0), dom_stuff_att1(A1), not_a_b(A0,A1), notin f(A0,A1) ;
+not_a(A0,A1) :- dom_stuff_att0(A0), dom_stuff_att1(A1), not_a_c(A1), notin f(A0,A1) ;
+
+not_a_b(A0,A1+1) :- dom_not_a_att0(A0), dom_not_a_att1(A1), notin b(A0,A1) ;
+not_a_c(A0+1) :- dom_not_a_att1(A0), not_c(A0) ;
+
+not_c(A0) :- dom_not_a_c_att0(A0), notin d(A0) ;
+not_c(A0) :- dom_not_a_c_att0(A0), notin e(A0) ;
+

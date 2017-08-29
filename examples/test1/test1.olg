@@ -1,0 +1,21 @@
+define(a,{int}) ;
+define(b,{int}) ;
+define(c,{int}) ;
+define(c_from_a,{int}) ;
+define(dom,{int}) ;
+define(not_c_from_a,{int}) ;
+define(not_c,{int}) ;
+define(domx,{int}) ;
+
+b(1) ;
+c(3) ;
+
+dom(5) ;
+domx(4) ;
+
+a(X) :- b(X) ;
+a(X) :- c_from_a(X) ;
+c_from_a(Y) :- c(X), Y==X+1, dom(Y) ;
+
+not_c_from_a( Y ) :- not_c(X), Y==X+1, dom(Y) ;
+not_c(X) :- domx(X), notin c(X) ;

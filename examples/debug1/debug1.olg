@@ -1,0 +1,88 @@
+define(node,{string,string,int});
+define(log,{string,string,int});
+define(missing_log,{string,string,int});
+define(pre,{string,string,int});
+define(post,{string,string,int});
+define(log_log_zhns,{string,string,int});
+define(log_clock_hybt,{string,string,int,int});
+define(not_log_from_missing_log,{string,string,int});
+define(not_missing_log_from_post,{string,string,int});
+define(bcast,{string,string,int});
+define(dom_log_att0,{string});
+define(dom_log_att1,{string});
+define(dom_log_att2,{int});
+define(dom_missing_log_att0,{string});
+define(dom_missing_log_att1,{string});
+define(dom_missing_log_att2,{int});
+define(clock,{string,string,int,int});
+node("a","b",1);
+node("a","c",1);
+node("b","a",1);
+node("b","c",1);
+node("c","a",1);
+node("c","b",1);
+bcast("a","hello",1);
+dom_log_att0("c");
+dom_log_att0("b");
+dom_log_att0("a");
+dom_log_att1("hello");
+dom_log_att2(3);
+dom_log_att2(2);
+dom_log_att2(4);
+dom_log_att2(5);
+dom_log_att2(1);
+dom_missing_log_att0("c");
+dom_missing_log_att0("b");
+dom_missing_log_att1("hello");
+dom_missing_log_att2(1);
+
+node(Node,Neighbor,SndTime+1) :- node(Node,Neighbor,SndTime), clock(Node,_,SndTime,_);
+
+log(A0,A1,A2) :- log_log_zhns(A0,A1,A2), log_clock_hybt(A0,_,A2,_);
+log(A0,A1,A2) :- bcast(Node1,A1,SndTime),node(Node1,A0,SndTime), clock(Node1,A0,SndTime,A2);
+log(A0,A1,A2) :- bcast(A0,A1,A2), clock(A0,A0,A2,_);
+
+pre(X,Pl,SndTime) :- log(X,Pl,SndTime),notin bcast(X,Pl,SndTime), clock(X,X,SndTime,_);
+
+
+log_log_zhns(Node,Pload,SndTime+1) :- log(Node,Pload,SndTime);
+log_clock_hybt(Node,B0,SndTime+1,B1) :- clock(Node,B0,SndTime,B1);
+
+not_log_from_missing_log(A0,A1,A2) :- notin log_log_zhns(A0,A1,A2),notin bcast(A0,A1,A2),notin node(_,A0,_),dom_log_att0(A0),dom_log_att1(A1),dom_log_att2(A2);
+
+clock("a","a",1,2);
+clock("a","b",1,2);
+clock("a","c",1,2);
+clock("b","a",1,2);
+clock("b","b",1,2);
+clock("b","c",1,2);
+clock("c","a",1,2);
+clock("c","b",1,2);
+clock("c","c",1,2);
+clock("a","a",2,3);
+clock("a","b",2,3);
+clock("a","c",2,3);
+clock("b","a",2,3);
+clock("b","b",2,3);
+clock("b","c",2,3);
+clock("c","a",2,3);
+clock("c","b",2,3);
+clock("c","c",2,3);
+clock("a","a",3,4);
+clock("a","b",3,4);
+clock("a","c",3,4);
+clock("b","a",3,4);
+clock("b","b",3,4);
+clock("b","c",3,4);
+clock("c","a",3,4);
+clock("c","b",3,4);
+clock("c","c",3,4);
+clock("a","a",4,5);
+clock("a","b",4,5);
+clock("a","c",4,5);
+clock("b","a",4,5);
+clock("b","b",4,5);
+clock("b","c",4,5);
+clock("c","a",4,5);
+clock("c","b",4,5);
+clock("c","c",4,5);

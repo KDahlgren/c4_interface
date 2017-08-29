@@ -29,27 +29,37 @@ from wrapper import C4Wrapper
 ############
 def driver() :
 
-  programFile = sys.argv[1]
-  tableFile   = sys.argv[2]
+  programFiles = sys.argv[1:-1]
+  tableFile    = sys.argv[-1]
 
   print "[ Executing C4 wrapper ]"
   c4libpath = os.path.abspath( __file__ + "/../../../lib/c4/build/src/libc4/libc4.dylib" )
   w = C4Wrapper.C4Wrapper( c4libpath ) # initializes c4 wrapper
 
   # /////////////////////////////////// #
-  rf = open( programFile, "r" )
-  prog1 = []
-  for line in rf :
-    line = line.rstrip()
-    prog1.append( line )
-  rf.close()
 
+  # collect programs
+  progList = []
+  for inFile in programFiles :
+    rf = open( inFile, "r" )
+    prog = []
+    for line in rf :
+      line = line.rstrip()
+      prog.append( line )
+    rf.close()
+    progList.append( prog )
+
+  # collect table list
   rf = open( tableFile, "r" )
   table_str1 = rf.readline()
   table_str1 = table_str1.rstrip()
   table_str1 = table_str1.split( "," )
 
-  results_array = w.run( [ prog1, table_str1 ] )
+  data = []
+  data.extend( progList )
+  data.append( table_str1 )
+
+  results_array = w.run( data )
 
   print
   print "[ OUTPUTTING C4 EVALUATION RESULTS ]"

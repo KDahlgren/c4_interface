@@ -244,14 +244,18 @@ class C4Wrapper( object ) :
   # fullprog is a string of concatenated overlog commands.
   def run( self, allProgramData ) :
 
-    allProgramLines = allProgramData[0] # := list of every code line in the generated C4 program.
-    tableList       = allProgramData[1] # := list of all tables in generated C4 program.
+    allProgramLines = allProgramData[0:-1] # := list of lists of every code line in the generated C4 program.
+    tableList       = allProgramData[-1] # := list of all tables in generated C4 program.
 
     # get full program
     #fullprog = self.getInputProg_group_all_and_clocks_by_sndtime( allProgramLines ) # group statements, clocks by time.
-    fullprog = self.getInputProg_one_group_for_everything_besides_clocks_and_group_clocks_by_sndTime( allProgramLines )
     #fullprog = self.getInputProg_group_clocks_only( allProgramLines )
     #fullprog = allProgramLines # no grouping, every code line installed separately.
+
+    fullprog = self.getInputProg_one_group_for_everything_besides_clocks_and_group_clocks_by_sndTime( allProgramLines[0] )
+    for i in range( 1, len( allProgramLines ) ) :
+      prog = allProgramLines[ i ]
+      fullprog.extend( self.getInputProg_one_group_for_everything_besides_clocks_and_group_clocks_by_sndTime( prog ) )
 
     # ----------------------------------------- #
     # KD : bcsat debugging session 6/21/17
@@ -282,6 +286,8 @@ class C4Wrapper( object ) :
       print "... loading prog ..."
 
     for subprog in fullprog :
+      print "Submitting subprog:"
+      print subprog
       c_prog = bytes( subprog )
       self.lib.c4_install_str( self.c4_obj, c_prog )
 
