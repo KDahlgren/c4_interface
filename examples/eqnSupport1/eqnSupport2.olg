@@ -6,6 +6,6 @@ define(post,{int,int}) ;
 d( 1 ) ;
 e( 1 ) ;
 
-a(A0,Y) :- d(A0),e(Y), A0==Y+1 ;
+a(X,A1) :- d(X),e(Y), A1==Y+1 ;
 
 post(X,Y) :- a(X,Y) ;
