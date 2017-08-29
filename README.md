@@ -1,3 +1,8 @@
+# Installation
+
+1. cd PyC4/
+2. python setup.py
+
 # Running programs
 
 1. Designate the path to the driver. 
