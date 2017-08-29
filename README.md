@@ -18,6 +18,6 @@ python ../../src/driver/driver.py ./myTest.olg ./tableListStr_myTest.data
 
 # Tips
 1. For C4 debugging, you'll have to manually flip the defines in the C4 submodule code.
-2. The run.sh script in examples/simplog_sanity_tests/ demonstrates the process of passing programs to PyC4.
+2. The run scripts in examples/simplog_sanity_tests/ demonstrates the process of passing programs to PyC4.
 3. PyC4 requires the last (rightmost) input file is the tables list.
 4. You can list as many overlog programs as you want between the driver script and the table list.

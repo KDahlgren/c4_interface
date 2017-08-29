@@ -211,6 +211,18 @@ not_log_from_missing_log(A0,A1,A2) :- dom_log_att0(A0),dom_log_att1(A1),dom_log_
 not_log_from_missing_log(A0,A1,A2) :- dom_log_att0(A0),dom_log_att1(A1),dom_log_att2(A2), not_node_from_not_log_from_missing_log(_,A0,_),notin clock(A0,A0,A2,_),notin log_log_vxzi_arithoprewrite(A0,A1,A2);
 not_log_from_missing_log(A0,A1,A2) :- dom_log_att0(A0),dom_log_att1(A1),dom_log_att2(A2), not_node_from_not_log_from_missing_log(_,A0,_),notin log_log_vxzi_arithoprewrite(A0,A1,A2),notin bcast(A0,A1,A2);
 
+not_missing_log_from_post(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_log_from_missing_log(_,A1,A2);
+not_missing_log_from_post(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),log(A0,A1,A2);
+not_missing_log_from_post(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_node_from_not_missing_log_from_post(_,A0,A2);
+
+not_missing_log_from_post_provybhphechvcxeyfis(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_log_from_missing_log(_,A1,A2);
+not_missing_log_from_post_provdsgdwjaluppeeoti(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),log(A0,A1,A2);
+not_missing_log_from_post_provcejwqaxcdzbfhmzq(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_node_from_not_missing_log_from_post(_,A0,A2);
+
+missing_log(A0,A1,A2) :- log(X,A1,A2),node(X,A0,A2), not_log_from_missing_log(A0,A1,A2), clock(X,X,A2,_);
+pre(X,Pl,SndTime) :- log(X,Pl,SndTime),notin bcast(X,Pl,SndTime), clock(X,X,SndTime,_);
+post(X,Pl,SndTime) :- log(X,Pl,SndTime), not_missing_log_from_post(_,Pl,SndTime), clock(X,X,SndTime,_);
+
 node_provsdkqyypbuwlzsfhn(A0,A1,A2) :- node_node_tari_arithoprewrite(A0,A1,A2),node_clock_ufbu_arithoprewrite(A0,_,A2,_);
 log_provhdxygbmqrqwrhjcg(A0,A1,A2) :- log_log_vxzi_arithoprewrite(A0,A1,A2),log_clock_kxkk_arithoprewrite(A0,_,A2,_);
 log_provsfdragvcftotcrbg(A0,A1,A2,Node1,SndTime) :- bcast(Node1,A1,SndTime),node(Node1,A0,SndTime),clock(Node1,A0,SndTime,A2);

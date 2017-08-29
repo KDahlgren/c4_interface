@@ -1,10 +1,2 @@
-not_missing_log_from_post(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_log_from_missing_log(_,A1,A2);
-not_missing_log_from_post(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),log(A0,A1,A2);
-not_missing_log_from_post(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_node_from_not_missing_log_from_post(_,A0,A2);
-
-not_missing_log_from_post_provybhphechvcxeyfis(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_log_from_missing_log(_,A1,A2);
-not_missing_log_from_post_provdsgdwjaluppeeoti(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),log(A0,A1,A2);
-not_missing_log_from_post_provcejwqaxcdzbfhmzq(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),not_node_from_not_missing_log_from_post(_,A0,A2);
-
 not_missing_log_from_post_provabhgouuinvnyplmr(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),notin clock(_,_,A2,_);
 not_missing_log_from_post(A0,A1,A2) :- dom_missing_log_att0(A0),dom_missing_log_att1(A1),dom_missing_log_att2(A2),notin clock(_,_,A2,_);
