@@ -29,8 +29,16 @@ from wrapper import C4Wrapper
 ############
 def driver() :
 
-  programFiles = sys.argv[1:-1]
-  tableFile    = sys.argv[-1]
+  pyc4( sys.argv )
+
+
+##########
+#  PYC4  #
+##########
+def pyc4( fileNameList ) :
+
+  programFiles = fileNameList[1:-1]
+  tableFile    = fileNameList[-1]
 
   print "[ Executing C4 wrapper ]"
   c4libpath = os.path.abspath( __file__ + "/../../../lib/c4/build/src/libc4/libc4.dylib" )
