@@ -22,3 +22,17 @@ python ../../src/drivers/pyc4.py ./myTest.olg ./tableListStr_myTest.data
 3. PyC4 requires the last (rightmost) input file is the tables list.
 4. You can list as many overlog programs as you want between the driver script and the table list.
 5. Searching the evaluation results on stdout for "Submitting subprog" reveals the exact order and input contents of all install_str calls associated with a particular C4 run.
+
+# building with cmake
+
+```
+git submodule update --init --recursive
+
+# install c4 dependencies
+dnf install cmake gcc apr-devel apr-util-devel flex bison sqlite-devel
+
+cmake .
+make
+
+python src/drivers/pyc4.py examples/test/myTest.olg examples/test/tableListStr_myTest.data
+```
