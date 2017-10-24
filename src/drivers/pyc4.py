@@ -41,8 +41,23 @@ def pyc4( fileNameList ) :
   tableFile    = fileNameList[-1]
 
   print "[ Executing C4 wrapper ]"
-  c4libpath = os.path.abspath( __file__ + "/../../../lib/c4/build/src/libc4/libc4.dylib" )
-  w = C4Wrapper.C4Wrapper( c4libpath ) # initializes c4 wrapper
+
+  libc4dir = os.path.join(
+          os.path.dirname(os.path.abspath(__file__)),
+          "../../lib/c4/src/libc4")
+  c4libnames = ["libc4.dylib", "libc4.so"]
+  c4libpaths = map(lambda fn: os.path.join(libc4dir, fn), c4libnames)
+
+  w = None
+  for path in c4libpaths:
+      try:
+          w = C4Wrapper.C4Wrapper(path)
+          break
+      except:
+          pass
+      pass
+  if not w:
+      raise Exception("could not load c4 library")
 
   # /////////////////////////////////// #
 
