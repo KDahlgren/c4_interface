@@ -1,0 +1,46 @@
+define(g,{string,int});
+define(b,{string,int});
+define(pre,{string,int});
+define(post,{string,int});
+define(not_b_from_g,{string,int});
+define(clock_mkze,{string,string,int});
+define(not_clock_mkze_from_not_b_from_g,{string,string,int});
+define(clock_jhkp,{string,string,int});
+define(a,{string,int});
+define(c,{string,int});
+define(d,{string,int});
+define(dom_b_att0,{string});
+define(dom_b_att1,{int});
+
+define(dom_clock_mkze_att0,{string});
+define(dom_clock_mkze_att1,{string});
+define(dom_clock_mkze_att2,{int});
+define(clock,{string,string,int,int});
+
+a("str",1);
+c("str",1);
+d("str",1);
+
+dom_b_att0("str");
+dom_b_att1(1);
+
+dom_clock_mkze_att0("str");
+dom_clock_mkze_att1("str");
+dom_clock_mkze_att2(1);
+
+g(X,SndTime) :- a(X,SndTime), not_b_from_g(X,SndTime), clock(X,X,SndTime,_);
+b(X,SndTime) :- c(X,SndTime),notin d(X,SndTime), clock(X,X,SndTime,_);
+pre(X,SndTime) :- g(X,SndTime), clock(X,X,SndTime,_);
+post(X,SndTime) :- pre(X,SndTime), clock(X,X,SndTime,_);
+not_b_from_g(X,SndTime) :- dom_b_att0(X),dom_b_att1(SndTime), d(X,SndTime);
+not_b_from_g(X,SndTime) :- dom_b_att0(X),dom_b_att1(SndTime),notin c(X,SndTime);
+not_b_from_g(X,SndTime) :- dom_b_att0(X),dom_b_att1(SndTime), not_clock_mkze_from_not_b_from_g(X,X,SndTime);
+clock_mkze(X,X,SndTime) :- clock(X,X,SndTime,_);
+
+not_clock_mkze_from_not_b_from_g(X,X,SndTime) :- dom_clock_mkze_att0(X),dom_clock_mkze_att1(X),dom_clock_mkze_att2(SndTime),notin clock_jhkp(X,X,SndTime);
+clock_jhkp(X,X,SndTime) :- clock(X,X,SndTime,_);
+
+clock("str","str",1,2);
+clock("str","str",2,3);
+clock("str","str",3,4);
+clock("str","str",4,5);

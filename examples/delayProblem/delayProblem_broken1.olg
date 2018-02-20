@@ -1,0 +1,55 @@
+define(g,{string,int});
+define(a,{string,int});
+define(b,{string,int});
+define(pre,{string,int});
+define(post,{string,int});
+define(not_b_from_g,{string,int});
+define(clock_vaqd_edbrewrite,{string,int});
+define(init_b_iakk_edbrewrite,{string});
+define(g_provibnrjerhabnbezjc,{string,int});
+define(a_provileassglheelppyk,{string,int,int});
+define(b_provhlnnroqgwndemppj,{string,int,int});
+define(pre_provdhuhjkkfwojteczu,{string,int});
+define(post_provkhdqgvjdpxmtmxsr,{string,int});
+define(not_b_from_g_provofznssxfbfhtyicu,{string,int});
+define(not_b_from_g_provqvkfwxzblolphzou,{string,int});
+define(clock_vaqd_edbrewrite_provahkmtvblxaglxiet,{string,int});
+define(init_b_iakk_edbrewrite_provzavygpipdzaonehs,{string});
+define(init_a,{string,int});
+define(init_b,{string,int});
+define(dom_b_att0,{string});
+define(dom_b_att1,{int});
+define(clock,{string,string,int,int});
+
+init_a("str",1);
+init_b("str",2);
+
+dom_b_att0("str");
+dom_b_att1(3);
+
+g(X,SndTime) :- a(X,SndTime), not_b_from_g(X,SndTime1), clock(X,X,SndTime,_), SndTime1==SndTime+1 ;
+a(X,DelivTime) :- init_a(X,SndTime), clock(X,X,SndTime,DelivTime);
+b(X,DelivTime) :- init_b(X,SndTime), clock(X,X,SndTime,DelivTime);
+
+pre(X,SndTime) :- g(X,SndTime), clock(X,X,SndTime,_);
+post(X,SndTime) :- pre(X,SndTime), clock(X,X,SndTime,_);
+
+not_b_from_g(X,DelivTime) :- dom_b_att0(X),dom_b_att1(DelivTime),notin clock_vaqd_edbrewrite(X,DelivTime);
+not_b_from_g(X,DelivTime) :- dom_b_att0(X),dom_b_att1(DelivTime),notin init_b_iakk_edbrewrite(X);
+
+clock_vaqd_edbrewrite(X,DelivTime) :- clock(X,X,_,DelivTime);
+init_b_iakk_edbrewrite(X) :- init_b(X,_);
+
+g_provibnrjerhabnbezjc(X,SndTime) :- a(X,SndTime),not_b_from_g(X,SndTime),clock(X,X,SndTime,_);
+a_provileassglheelppyk(X,DelivTime,SndTime) :- init_a(X,SndTime),clock(X,X,SndTime,DelivTime);
+b_provhlnnroqgwndemppj(X,DelivTime,SndTime) :- init_b(X,SndTime),clock(X,X,SndTime,DelivTime);
+pre_provdhuhjkkfwojteczu(X,SndTime) :- g(X,SndTime),clock(X,X,SndTime,_);
+post_provkhdqgvjdpxmtmxsr(X,SndTime) :- pre(X,SndTime),clock(X,X,SndTime,_);
+not_b_from_g_provofznssxfbfhtyicu(X,DelivTime) :- dom_b_att0(X),dom_b_att1(DelivTime),notin clock_vaqd_edbrewrite(X,DelivTime);
+not_b_from_g_provqvkfwxzblolphzou(X,DelivTime) :- dom_b_att0(X),dom_b_att1(DelivTime),notin init_b_iakk_edbrewrite(X);
+clock_vaqd_edbrewrite_provahkmtvblxaglxiet(X,DelivTime) :- clock(X,X,_,DelivTime);
+init_b_iakk_edbrewrite_provzavygpipdzaonehs(X) :- init_b(X,_);
+
+clock("str","str",1,2);
+//clock("str","str",2,3);
+clock("str","str",3,4);

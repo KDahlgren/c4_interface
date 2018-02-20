@@ -42,7 +42,7 @@ def pyc4( fileNameList ) :
 
   print "[ Executing C4 wrapper ]"
   c4libpath = os.path.abspath( __file__ + "/../../../lib/c4/build/src/libc4/libc4.dylib" )
-  w = C4Wrapper.C4Wrapper( c4libpath ) # initializes c4 wrapper
+  w = C4Wrapper.C4Wrapper( ) # initializes c4 wrapper
 
   # /////////////////////////////////// #
 
@@ -67,7 +67,9 @@ def pyc4( fileNameList ) :
   data.extend( progList )
   data.append( table_str1 )
 
-  results_array = w.run( data )
+  #results_array = w.run( data )
+  #results_array = w.run_pure( data )
+  results_array = w.run_pure_iterative( data )
 
   print
   print "[ OUTPUTTING C4 EVALUATION RESULTS ]"

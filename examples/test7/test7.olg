@@ -1,0 +1,6 @@
+define(a,{string});
+define(b,{string});
+define(c,{string});
+b("str10");
+c("str20");
+a(X) :- b(X), c(X) ;
