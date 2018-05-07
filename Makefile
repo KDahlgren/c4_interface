@@ -1,6 +1,6 @@
 all: deps
 
-deps: get-submodules
+deps: get-submodules c4
 
 clean:
 	rm -rf lib/c4/build
@@ -11,7 +11,7 @@ lib/c4/build/src/libc4/libc4.dylib:
 	@which cmake > /dev/null
 	cd lib/c4 && mkdir -p build
 	cd lib/c4/build && cmake ..
-	( cd lib/c4/build && make ) 2>&1 | tee c4_out.txt;
+	cd lib/c4/build && make
 
 get-submodules:
 	git submodule init
