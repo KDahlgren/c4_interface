@@ -384,8 +384,8 @@ class C4Wrapper( object ) :
     logging.debug( "... loading prog ..." )
 
     for subprog in fullprog :
-      logging.debug( "SUBMITTING SUBPROG : " )
-      logging.debug( subprog )
+      print ( "SUBMITTING SUBPROG : " )
+      print ( subprog )
       c_prog = bytes( subprog )
       self.lib.c4_install_str( self.c4_obj, c_prog )
 
