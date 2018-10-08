@@ -28,16 +28,14 @@ from wrapper import C4Wrapper
 #  DRIVER  #
 ############
 def driver() :
-
-  pyc4( sys.argv )
-
+  pyc4( sys.argv[1:] )
 
 ##########
 #  PYC4  #
 ##########
 def pyc4( fileNameList ) :
 
-  programFiles = fileNameList[1:-1]
+  programFiles = fileNameList[:-1]
   tableFile    = fileNameList[-1]
 
   print "[ Executing C4 wrapper ]"
@@ -49,9 +47,11 @@ def pyc4( fileNameList ) :
   # collect programs
   progList = []
   for inFile in programFiles :
+    print inFile
     rf = open( inFile, "r" )
     prog = []
     for line in rf :
+      print "line = " + line
       line = line.rstrip()
       prog.append( line )
     rf.close()
@@ -67,6 +67,10 @@ def pyc4( fileNameList ) :
   data.extend( progList )
   data.append( table_str1 )
 
+  print progList
+  print table_str1
+  print data
+
   #results_array = w.run( data )
   #results_array = w.run_pure( data )
   results_array = w.run_pure_iterative( data )
@@ -79,11 +83,13 @@ def pyc4( fileNameList ) :
   print
   print "PROGRAM ENDED SUCESSFULLY! =D"
 
+  return results_array
 
 #########################
 #  THREAD OF EXECUTION  #
 #########################
-driver()
+if __name__ == "__main__" :
+  driver()
 
 
 #########

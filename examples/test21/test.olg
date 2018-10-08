@@ -1,0 +1,13 @@
+define(conn,{string,string,int});
+define(net,{string,string,int});
+define(rec,{string,string});
+
+net(X,Y,S)  :- conn(X,Y,S) ;
+net(X,Y,S1) :- net(X,Z1,S1),conn(Z1,Y,S2),S1 < S2 ;
+net(X,Y,S2) :- net(X,Z2,S1),conn(Z2,Y,S2),S2 < S1 ;
+rec(X,Y)    :- net(X,Y,S), notin conn(X,Y,_), S >= 50 ;
+
+conn("Alex","Bailey",63) ;
+conn("Bailey","Alex",63) ;
+conn("Alex","Devyn",91) ;
+conn("Devyn","Alex",91) ;

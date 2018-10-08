@@ -1,0 +1,39 @@
+define(items,{string,int});
+define(dom_not_net,{int,int,int});
+define(orig_items,{string,int});
+define(orig_ratings,{int,int});
+define(net,{int,int,int});
+define(not_net,{int,int,int});
+define(orig_q,{string,string,int});
+define(rec,{string,string,int});
+define(orig_query,{string,string,int});
+define(orig_net,{int,int,int});
+define(query,{string,string,int});
+define(ratings,{int,int});
+define(q,{string,string,int});
+define(orig_rec,{string,string,int});
+
+orig_net(Mid1,Mid2,Rating):-net(Mid1,Mid2,Rating),ratings(Mid2,Rating);
+
+q(Movie1,Movie2,Z):-not_net(X,Y,Z),query(Movie1,Movie2,Z),items(Movie1,X),items(Movie2,Y);
+not_net(Mid1,Mid2,Rating):-dom_not_net(Mid1,Mid2,Rating),notin ratings(Mid1,Rating),notin ratings(Mid2,Rating);
+not_net(Mid1,Mid2,Rating):-not_net(Mid1,Mid2,Rating),ratings(Mid2,Rating),dom_not_net(Mid1,Mid2,Rating);
+
+dom_not_net(X,Y,Z):-query(Movie1,Movie2,Z),items(Movie1,X),items(Movie2,Y),notin orig_net(X,Y,Z);
+dom_not_net(Mid1,Mid2,Rating):-dom_not_net(Mid1,Mid2,Rating),notin orig_net(Mid1,Mid2,Rating),notin ratings(Mid2,Rating);
+dom_not_net(Mid1,Mid2,Rating):-ratings(Mid2,Rating),dom_not_net(Mid1,Mid2,Rating),notin orig_net(Mid1,Mid2,Rating);
+
+not_net(Mid1,Mid2,Rating):-not_net(Mid1,Mid2,Rating),dom_not_net(Mid1,Mid2,Rating),notin ratings(Mid2,Rating);
+orig_q(Movie1,Movie2,Z):-not_net(X,Y,Z),query(Movie1,Movie2,Z),items(Movie1,X),items(Movie2,Y);
+orig_net(Mid1,Mid2,Rating):-ratings(Mid1,Rating),ratings(Mid2,Rating);
+not_net(Mid1,Mid2,Rating):-ratings(Mid1,Rating),dom_not_net(Mid1,Mid2,Rating),notin ratings(Mid2,Rating);
+net(Mid1,Mid2,Rating):-ratings(Mid1,Rating),ratings(Mid2,Rating);
+not_net(Mid1,Mid2,Rating):-ratings(Mid2,Rating),dom_not_net(Mid1,Mid2,Rating),notin ratings(Mid1,Rating);
+not_net(Mid1,Mid2,Rating):-net(Mid1,Mid2,Rating),dom_not_net(Mid1,Mid2,Rating),notin ratings(Mid2,Rating);
+net(Mid1,Mid2,Rating):-net(Mid1,Mid2,Rating),ratings(Mid2,Rating);
+
+query("Crash(1996)","NothingPersonal(1995)",5);
+ratings(506,2);
+ratings(325,5);
+items("Crash(1996)",325);
+items("NothingPersonal(1995)",506);

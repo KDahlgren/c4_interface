@@ -438,7 +438,7 @@ class C4Wrapper( object ) :
 if __name__ == '__main__' :
 
   logging.debug( "[ Executing C4 wrapper ]" )
-  w = C4Wrapper( '../../lib/c4/build/src/libc4/libc4.dylib' ) # initializes c4
+  w = C4Wrapper( )
 
   # /////////////////////////////////// #
   rf = open( "./myTest.olg", "r" )
